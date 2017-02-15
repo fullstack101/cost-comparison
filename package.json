@@ -3,21 +3,22 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node bin/www.js"
   },
   "dependencies": {
-    "body-parser": "~1.16.0",
+    "body-parser": "^1.16.1",
     "client-ip": "~1.0.0",
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "^1.4.3",
     "debug": "~2.6.0",
     "es6-promise": "~3.1.2",
-    "express": "~4.14.1",
+    "express": "^4.14.1",
     "fs": "~0.0.1",
-    "json-parser": "1.1.5",
     "jade": "~1.11.0",
-    "morgan": "~1.7.0",
+    "json-parser": "1.1.5",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7",
     "request": "2.79.0",
     "request-promise": "4.1.1",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "^2.3.2"
   }
 }

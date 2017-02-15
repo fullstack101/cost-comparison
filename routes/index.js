@@ -13,10 +13,10 @@ const jsonParser=require('json-parser');
 var options = {
     method: 'get',
     json: true,
-    url: "https://www.numbeo.com/api/city_prices?api_key=<API_Key>&query=Belgrade"
+    url: "https://www.numbeo.com/api/city_prices?api_key=&query=Belgrade"
 };
 
-// way 2 using Promises
+// // way 2 using Promises
 const getContent = function(url) {
     // return new pending promise
     return new Promise((resolve, reject) => {
@@ -43,7 +43,7 @@ router.get('/numbeo', function (req, res, next) {
     // request(options, function (err, res, body){console.log(body);
     //     });
     // way 2 using Promises
-    getContent('https://www.numbeo.com/api/city_prices?api_key=0ifio49inu2plm&query=Belgrade')
+    getContent('https://www.numbeo.com/api/city_prices?api_key=&query=Belgrade')
         .then((html) => console.log(jsonParser.parse(html)))
     .catch((err) => console.error(err));
 
