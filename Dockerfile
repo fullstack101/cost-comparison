@@ -1,13 +1,13 @@
-FROM mhart/alpine-node:6.9.2
+FROM node:6.9
 
-WORKDIR /var/app
+WORKDIR /app
 
-COPY . /var/app
+ADD . /app
 
-RUN npm install --production
 
-EXPOSE 8080
+RUN ["npm", "install"]
 
-ENV NODE_ENV=production
+RUN ["npm", "run", "build"]
 
-CMD ["node", "bin/www"]
+
+CMD ["npm", "run", "start"]
