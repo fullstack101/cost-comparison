@@ -24,7 +24,7 @@
     "serve-favicon": "^2.3.2"
   },
   "devDependencies": {
-    "chai": "*",
+    "chai": "^3.5.0",
     "mocha": "*"
   }
 }
