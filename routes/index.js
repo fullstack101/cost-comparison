@@ -7,36 +7,34 @@ const fs = require('fs');
 const path = require('path');
 const jsonParser = require('json-parser');
 const fetch = require('node-fetch');
+//const getCityFromIP = require('./helperFunctions.js').getCityFromIP;
 
+const getCityFromIP = function (userIP) {
+    return fetch('https://freegeoip.net/json/100.105.14.101')
+        .then((res) => getJSON(res))
+        .then((json) => getCityFromJSON(json))
+        .then((city) => getCityStats(city))
+};
 
-const getCity = function (userIP){
-    return new Promise(function(resolve, reject) {
-        fetch('https://freegeoip.net/json/100.105.14.101')
-            .then(function(res) {
-                return res.json();
-            }).then(function(localeJSON) {
-            return localeJSON.city;
-        }).then(function(city){
-            city=(city == "" ? "Belgrade" : city);
-            fetch("https://www.numbeo.com/api/city_prices?api_key=<API_Key>&query="+city)
-                .then(function(res){
-                    return res.json();
-                }).then(function(cityStatsJSON) {
-                resolve(cityStatsJSON);
-            });
-        })
-    });
+const getCityStats = function (city) {
+    city = (city == "" ? "Belgrade" : city);
+    return fetch("https://www.numbeo.com/api/city_prices?api_key=0ifio49inu2plm&query=" + city)
+        .then((res) => getJSON(res))
 };
 
 router.get('/numbeo', function (req, res, next) {
+    getCityFromIP("asd");
+    //console.log(getCityFromIP);
+    //console.log(getCityStats);
     let ip = req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
     ip = ip.substring(7);
-    getCity(ip).then(function (cityStats) { res.end(JSON.stringify(cityStats)); });
+    getCityFromIP(ip).then(function (cityStats) {
+        res.end(JSON.stringify(cityStats));
+    });
 });
-
 
 
 router.get('/testIP', function (req, res, next) {
@@ -60,4 +58,12 @@ router.get('/', function (req, res, next) {
     res.render('index', {title: 'Express', text: "Used for testing"});
 });
 
+const getJSON = function (res) {
+    return res.json();
+};
+const getCityFromJSON = function (localeJSON) {
+    return localeJSON.city;
+};
+
 module.exports = router;
+
