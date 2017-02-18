@@ -7,24 +7,11 @@ const fs = require('fs');
 const path = require('path');
 const jsonParser = require('json-parser');
 const fetch = require('node-fetch');
-//const getCityFromIP = require('./helperFunctions.js').getCityFromIP;
-
-const getCityFromIP = function (userIP) {
-    return fetch('https://freegeoip.net/json/100.105.14.101')
-        .then((res) => getJSON(res))
-        .then((json) => getCityFromJSON(json))
-        .then((city) => getCityStats(city))
-};
-
-const getCityStats = function (city) {
-    city = (city == "" ? "Belgrade" : city);
-    return fetch("https://www.numbeo.com/api/city_prices?api_key=0ifio49inu2plm&query=" + city)
-        .then((res) => getJSON(res))
-};
+const getCityFromIP = require('../utilities/helperFunctions.js').getCityFromIP;
 
 router.get('/numbeo', function (req, res, next) {
-    getCityFromIP("asd");
-    //console.log(getCityFromIP);
+    //getCityFromIP("100.105.14.101");
+    console.log(getCityFromIP);
     //console.log(getCityStats);
     let ip = req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress ||
@@ -57,13 +44,6 @@ router.get('/', function (req, res, next) {
     console.log("first");
     res.render('index', {title: 'Express', text: "Used for testing"});
 });
-
-const getJSON = function (res) {
-    return res.json();
-};
-const getCityFromJSON = function (localeJSON) {
-    return localeJSON.city;
-};
 
 module.exports = router;
 
