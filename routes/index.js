@@ -5,7 +5,7 @@ const request = require('request');
 const getip = require('client-ip');
 const fs = require('fs');
 const path = require('path');
-const jsonParser=require('json-parser');
+const jsonParser = require('json-parser');
 const fetch = require('node-fetch');
 
 
