@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node bin/www.js"
+    "start": "node bin/www.js",
+    "test": "mocha"
   },
   "dependencies": {
     "body-parser": "^1.16.1",
@@ -21,5 +22,9 @@
     "request": "2.79.0",
     "request-promise": "4.1.1",
     "serve-favicon": "^2.3.2"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*"
   }
 }
