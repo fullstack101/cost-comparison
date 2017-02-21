@@ -7,20 +7,22 @@ const fs = require('fs');
 const path = require('path');
 const jsonParser = require('json-parser');
 const fetch = require('node-fetch');
+
 const getCityFromIP = require('../utilities/helperFunctions.js').getCityFromIP;
+const getCityStats = require('../utilities/helperFunctions.js').getCityStats;
 
 router.get('/numbeo', function (req, res, next) {
-    //getCityFromIP("100.105.14.101");
     console.log(getCityFromIP);
-    //console.log(getCityStats);
     let ip = req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
     ip = ip.substring(7);
-    getCityFromIP(ip).then(function (cityStats) {
-        res.end(JSON.stringify(cityStats));
-    });
+    Promise.all([getCityFromIP(ip).then((city) => getCityStats(city)),
+        getCityStats('Blagoevgrad')])
+        .then(function (cityStats) {
+            res.json(cityStats);
+        });
 });
 
 
