@@ -8,7 +8,7 @@ const getCityFromIP = function (userIP) {
 
 const getCityStats = function (city) {
     city = (city == "" ? "Belgrade" : city);
-    return fetch("https://www.numbeo.com/api/city_prices?api_key=0ifio49inu2plm&currency=USD&query=" + city)
+    return fetch("https://www.numbeo.com/api/city_prices?api_key=<API_KEU>&currency=USD&query=" + city)
         .then((res) => getJSON(res))
 };
 
