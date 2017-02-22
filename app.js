@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
+
 const app = express();
 
 // view engine setup
@@ -34,7 +35,7 @@ app.use(function (req, res, next) {
 
     // Request headers you wish to allow
     // needs further research
-    //res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    //res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,apikey-type');
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
