@@ -1,8 +1,31 @@
 body {
-  padding: 50px;
+  padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+.container {
+  margin: 0 0;
+  padding: 0 0;
+  width: inherit;
+}
+
+.row {
+  margin: 0 0;
+}
+#col1, #col2{
+  padding: 0 0;
+}
+/*
+Pretty print JSON, used for testing
+*/
+pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+
