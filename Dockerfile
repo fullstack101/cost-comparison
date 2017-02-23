@@ -1,18 +1,19 @@
-#FROM node:boron
-#
-#RUN mkdir -p /usr/src/app
-#
-#WORKDIR /usr/src/app
-#
-##ADD . /app
-#
-#COPY package.json /app
-#
-#RUN npm install
-#
+FROM node:boron
+#FROM node:4-onbuild
+
+RUN mkdir -p /src
+
+#ADD . /app
+
+COPY  . /src
+
+WORKDIR /src
+
+RUN npm install
+
+CMD node bin/www
 #COPY . /app
 
-FROM node:4-onbuild
 
 EXPOSE 8080
 
