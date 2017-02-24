@@ -51,6 +51,7 @@ const getCityStats = function (city) {
         .then((res) => getJSON(res))
 };
 
+
 const getJSON = function (res) {
     return res.json();
 };
