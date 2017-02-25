@@ -5,14 +5,16 @@
  */
 
 const app = require('../app');
-const debug = require('debug')('fullstack-project:server');
+const debug = require('debug'); //('fullstack-project:server');
 const http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-
-let port = normalizePort(process.env.PORT || '8080');
+//Set port to something other than 8080
+// so that when run inside a container we can have
+//port 8080 exposed to the outside world
+let port = normalizePort(process.env.PORT || '8081');
 app.set('port', port);
 
 /**
@@ -26,7 +28,7 @@ const server = http.createServer(app);
  */
 
 server.listen(port);
-console.log("Server running on " + server.address() + ":" + port);
+console.log("Server running on " + server.address().toString() + ":" + port);
 server.on('error', onError);
 server.on('listening', onListening);
 
