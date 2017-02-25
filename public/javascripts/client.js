@@ -23,10 +23,10 @@ const httpJSONRequest = function(url){
     });
 };
 
-httpJSONRequest("http://localhost:8080/testIP")
+httpJSONRequest("http://nodeci.azurewebsites.net/testIP")
     .then((json) => document.getElementById("col1").appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(json));
 
-httpJSONRequest("http://localhost:8080/numbeo")
+httpJSONRequest("http://nodeci.azurewebsites.net/numbeo")
     .then((json) => document.getElementById("col2").appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(json[0]));
 
 // Pretty JSON

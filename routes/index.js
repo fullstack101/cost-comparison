@@ -34,8 +34,9 @@ router.get('/testIP', function (req, res, next) {
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
+    ip = "135.143.251.132:62105";
     getGeoJSON(ip)
-        .then((geoJSON) => res.json(geoJSON));
+       .then((geoJSON) => res.json(geoJSON));
     //res.render('test', {title: 'IP', text: ip});
 });
 
