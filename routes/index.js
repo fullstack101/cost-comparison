@@ -13,7 +13,7 @@ const getCityFromIP = require('../utilities/helperFunctions.js').getCityFromIP;
 const getCityStats = require('../utilities/helperFunctions.js').getCityStats;
 
 router.get('/home', function (req, res, next) {
-    res.render('index', {text: 'Hello World'});
+    res.render('index');
 });
 
 router.get('/numbeo', function (req, res, next) {
@@ -21,9 +21,6 @@ router.get('/numbeo', function (req, res, next) {
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
-    //console.log(ip);
-    ip = ip.substring(7);
-    //console.log(ip);
     Promise.all([getCityFromIP(ip).then((city) => getCityStats(city)), getCityStats('Blagoevgrad')])
         .then((cityStats) => res.json(cityStats));
 });
@@ -34,7 +31,6 @@ router.get('/testIP', function (req, res, next) {
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
-    ip = "135.143.251.132:62105";
     getGeoJSON(ip)
        .then((geoJSON) => res.json(geoJSON));
     //res.render('test', {title: 'IP', text: ip});
