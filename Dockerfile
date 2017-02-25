@@ -15,7 +15,7 @@ CMD node bin/www
 #COPY . /app
 
 
-EXPOSE 8080
+EXPOSE 8081
 
 
 

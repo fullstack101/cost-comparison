@@ -36,7 +36,7 @@ router.get('/testIP', function (req, res, next) {
         req.connection.socket.remoteAddress;
     getGeoJSON(ip)
         .then((geoJSON) => res.json(geoJSON));
-    //res.render('test', {title: 'IP', text: ip});
+    // res.render('test', {title: 'IP', text: ip});
 });
 
 router.get('/arguments?:city', function (req, res, next) {
