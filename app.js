@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
     // Website you wish to allow to connect
     // change with your IP address!
     //TODO: change this http://10.251.132.2:8080
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'http://100.105.14.101:8080');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET');

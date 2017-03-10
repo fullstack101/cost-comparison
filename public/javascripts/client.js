@@ -27,7 +27,38 @@ httpJSONRequest("http://localhost:8080/testIP")
     .then((json) => document.getElementById("col1").appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(json));
 
 httpJSONRequest("http://localhost:8080/numbeo")
-    .then((json) => document.getElementById("col2").appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(json[0]));
+    .then(function(json)  {
+        var width = 500,
+            barHeight = 20;
+        var x = d3.scaleLinear()
+            .range([0, 500]);
+
+        var chart = d3.select(".chart")
+            .attr("width", width)
+            .attr("height", barHeight * json[0].prices.length);
+
+        var bar = chart.selectAll("g")
+            .data(json[0].prices)
+            .enter().append("g")
+            .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+
+        bar.append("rect")
+            .attr("width", function(d) {return d.average_price;})
+            .attr("height", barHeight);
+
+        bar.append("text")
+            .attr("x", function(d) { return 500; })
+            .attr("y", barHeight / 2)
+            .attr("dy", ".35em")
+            .text(function(d) { return d.item_name; });
+        // d3.select('#col2')
+        //     .selectAll("div")
+        //     .data(json[0].prices)
+        //     .enter().append("div")
+        //     .style("width", function(d) { return x(d.average_price) + "px"; })
+        //     .text(function(d) { return d.item_name + d.average_price; });
+        //document.getElementById("col2").appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(json[0]);
+    });
 
 // Pretty JSON
 
