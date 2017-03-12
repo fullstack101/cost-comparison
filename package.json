@@ -6,7 +6,7 @@
   "author": "Team2 of S17 INF397",
   "scripts": {
     "build": "node build.js",
-    "start": "node build.js && node ./bin/www",
+    "start": "node ./bin/www",
     "test": "mocha"
   },
   "dependencies": {
