@@ -13,7 +13,7 @@ const getCityFromIP = require('../utilities/helperFunctions.js').getCityFromIP;
 const getCityStats = require('../utilities/helperFunctions.js').getCityStats;
 
 router.get('/home', function (req, res, next) {
-    res.render('index');
+    res.render('index', {text: 'Hello World'});
 });
 
 router.get('/numbeo', function (req, res, next) {
@@ -32,8 +32,7 @@ router.get('/testIP', function (req, res, next) {
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
     getGeoJSON(ip)
-       .then((geoJSON) => res.json(geoJSON));
-    //res.render('test', {title: 'IP', text: ip});
+        .then((geoJSON) => res.json(geoJSON));
 });
 
 router.get('/arguments?:city', function (req, res, next) {
@@ -42,7 +41,7 @@ router.get('/arguments?:city', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    res.render('test', {title: 'Express', text: "Used for testing"});
+    res.render('test', {title: 'Express app for cost comparison', text: "Checks client IP and compares cost of a burger in that city against Blago"});
 });
 
 module.exports = router;

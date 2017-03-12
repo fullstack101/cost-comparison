@@ -1,9 +1,8 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 
-
+//Load Numbeo API key
 let apikey = "";
-// First I want to read the file
 fs.readFile('../apikey.txt', function read(err, data) {
     if (err) {
         console.log("API key missing. Place numbeo API key in ./apikey.txt");
@@ -13,28 +12,22 @@ fs.readFile('../apikey.txt', function read(err, data) {
        apikey = data;
        processFile(apikey);
     }
-
 });
 
 function processFile() {
-
     if (apikey.toString().trim().length < 13) {
         console.log("Invalid API key in ./apikey.txt. The file should contain the Numbeo API key in one line.");
     }
     else{
     apikey = apikey.toString().trim();
-
-    console.log("API key loaded from ./apikey.txt");
-    console.log("apikey = \"" + apikey + "\"");
-
+    console.log("API key \"*" + apikey.substring(8) + "\" loaded from ./apikey.txt");
     }
-
 }
 
 const getGeoJSON = function (userIP) {
     userIP = (userIP == "::1" || userIP == "" ? '83.143.251.132' : userIP);
     userIP = (userIP.indexOf(":") == -1 ? userIP : userIP.substring(0,userIP.indexOf(":")));
-    return fetch('https://www.freegeoip.net/json/'+userIP)
+    return fetch('http://ip-api.com/json/' + userIP)
         .then((res) => getJSON(res))
 };
 
