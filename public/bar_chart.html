@@ -1,7 +1,12 @@
 <!DOCTYPE html>
+<html>
 <meta charset="utf-8">
 <head>
-<style>
+    <title>Cost Comparison</title>
+<meta charset="utf-8">
+<head>
+
+ <style>
 
 .bar {
   fill: steelblue;
@@ -39,9 +44,9 @@ let t = d3.transition()
     .duration(750)
     .ease(d3.easeLinear);
 
-//d3.tsv("data.tsv",  function(d) {d.price = +d.price; return d;}, (error,data) => drawit(error,data) );
 
-var data = [
+
+var cokedata = [
     {location  : "Blago",
     price : 1.08167,
     item: "Coke"},
@@ -52,7 +57,29 @@ var data = [
 
 ];
 
+var mealdata = [
+    {location  : "Blago",
+    price : 7.08167,
+    item: "Meal"},
 
+    {location  : "Belgrade",
+        price : 2.86,
+        item: "Meal"}
+
+];
+
+var ticketdata = [
+    {location  : "Blago",
+        price : 5.00,
+        item: "Movie Ticket"},
+
+    {location  : "Belgrade",
+        price : 6.00,
+        item: "Movie Ticket"}
+
+];
+
+      
 
 var drawit = function (error, data) {
     if (error) throw error;
@@ -104,9 +131,31 @@ var drawit = function (error, data) {
         });
 };
 
-drawit(0, data);
+drawit(0, mealdata);
+
+let showticket = function (whatdata) {
+
+    //ugly non-d3js way to kill elements
+    d3.select("body").selectAll(".bar")
+        .remove();
+
+    d3.select("body").selectAll(".axis--y")
+        .transition().duration(1000)
+        .style("opacity", 0)
+        .style("color", "red")
+        .remove();
+
+
+    drawit(0, whatdata);
+};
+
 
 </script>
+<p>
+<a href="#" onclick="showticket(cokedata)">Coke</a>
+<a href="#" onclick="showticket(mealdata)">Meal</a>
+<a href="#" onclick="showticket(ticketdata)"> Movie Ticket</a>
+</p>
 
 
 </body>
