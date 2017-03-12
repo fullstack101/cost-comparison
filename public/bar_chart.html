@@ -3,7 +3,10 @@
 <meta charset="utf-8">
 <head>
     <title>Cost Comparison</title>
-<style>
+<meta charset="utf-8">
+<head>
+
+ <style>
 
 .bar {
   fill: steelblue;
@@ -37,15 +40,11 @@ let x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
 let g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
 let t = d3.transition()
     .duration(750)
     .ease(d3.easeLinear);
 
 
-
-
-//d3.tsv("data.tsv",  function(d) {d.price = +d.price; return d;}, (error,data) => drawit(error,data) );
 
 var cokedata = [
     {location  : "Blago",
@@ -80,6 +79,7 @@ var ticketdata = [
 
 ];
 
+      
 
 var drawit = function (error, data) {
     if (error) throw error;
@@ -152,7 +152,7 @@ let showticket = function (whatdata) {
 
 </script>
 <p>
-    <a href="#" onclick="showticket(cokedata)">Coke</a>
+<a href="#" onclick="showticket(cokedata)">Coke</a>
 <a href="#" onclick="showticket(mealdata)">Meal</a>
 <a href="#" onclick="showticket(ticketdata)"> Movie Ticket</a>
 </p>

@@ -25,11 +25,9 @@ function processFile() {
 }
 
 const getGeoJSON = function (userIP) {
-    console.log("in geo");
-    console.log(userIP + " before");
     userIP = (userIP == "::1" || userIP == "" ? '83.143.251.132' : userIP);
-    console.log(userIP + " after");
-    return fetch('https://www.freegeoip.net/json/' + userIP)
+    userIP = (userIP.indexOf(":") == -1 ? userIP : userIP.substring(0,userIP.indexOf(":")));
+    return fetch('http://ip-api.com/json/' + userIP)
         .then((res) => getJSON(res))
 };
 
