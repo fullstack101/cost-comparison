@@ -27,14 +27,14 @@ app.use(function (req, res, next) {
     // Website you wish to allow to connect
     // change with your IP address!
     //TODO: change this http://10.251.132.2:8080
-    res.setHeader('Access-Control-Allow-Origin', 'http://100.105.14.101:8080');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET');
 
     // Request headers you wish to allow
     // needs further research
-    //res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,apikey-type');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
