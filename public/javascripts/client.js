@@ -21,10 +21,10 @@ const httpJSONRequest = function(url){
     });
 };
 
-httpJSONRequest("http://localhost:8081/testIP")
+httpJSONRequest("http://cost-comparison.azurewebsites.net/testIP")
     .then((json) => document.getElementById("col1").appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(json));
 
-httpJSONRequest("http://localhost:8081/numbeo")
+httpJSONRequest("http://cost-comparison.azurewebsites.net/numbeo")
     .then(function(json)  {
         var width = 500,
             barHeight = 20;
