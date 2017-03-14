@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+    <title>Cost Comparison</title>
+<meta charset="utf-8">
+<head>
+
+ <style>
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis--x path {
+  display: none;
+}
+
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+
+<svg width="960" height="500"></svg>
+
+    <script>
+
+let svg = d3.select("svg"),
+    margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom;
+
+let x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+    y = d3.scaleLinear().rangeRound([height, 0]);
+
+let g = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+let t = d3.transition()
+    .duration(750)
+    .ease(d3.easeLinear);
+
+
+
+var cokedata = [
+    {location  : "Blago",
+    price : 1.08167,
+    item: "Coke"},
+
+    {location  : "Belgrade",
+        price : 1.86,
+        item: "Coke"}
+
+];
+
+var mealdata = [
+    {location  : "Blago",
+    price : 7.08167,
+    item: "Meal"},
+
+    {location  : "Belgrade",
+        price : 2.86,
+        item: "Meal"}
+
+];
+
+var ticketdata = [
+    {location  : "Blago",
+        price : 5.00,
+        item: "Movie Ticket"},
+
+    {location  : "Belgrade",
+        price : 6.00,
+        item: "Movie Ticket"}
+
+];
+
+      
+
+var drawit = function (error, data) {
+    if (error) throw error;
+
+    console.log(data);
+
+
+    x.domain(data.map(function (d) {
+        return d.location;
+    }));
+    y.domain([0, d3.max(data, function (d) {
+        return d.price;
+    })]);
+
+    g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(5, "$"))
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end")
+        .text("Price");
+
+
+    g.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function (d) {
+            return x(d.location);
+        })
+        .attr("y", function (d) {
+            return y(d.price);
+        })
+        .attr("width", x.bandwidth())
+        .attr("height", 0)
+        .transition()
+        .delay(500)
+        .duration(1000)
+        .attr("height", function (d) {
+            return height - y(d.price);
+
+        });
+};
+
+drawit(0, mealdata);
+
+let showticket = function (whatdata) {
+
+    //ugly non-d3js way to kill elements
+    d3.select("body").selectAll(".bar")
+        .remove();
+
+    d3.select("body").selectAll(".axis--y")
+        .transition().duration(1000)
+        .style("opacity", 0)
+        .style("color", "red")
+        .remove();
+
+
+    drawit(0, whatdata);
+};
+
+
+</script>
+<p>
+<a href="#" onclick="showticket(cokedata)">Coke</a>
+<a href="#" onclick="showticket(mealdata)">Meal</a>
+<a href="#" onclick="showticket(ticketdata)"> Movie Ticket</a>
+</p>
+
+
+</body>
+</html>
