@@ -1,48 +1,87 @@
 body {
-  padding: 0px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 0px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
 .container {
-  margin: 0 0;
-  padding: 0 0;
-  width: inherit;
+    margin: 0 0;
+    padding: 0 0;
+    width: inherit;
 }
 
 .row {
-  margin: 0 0;
+    margin: 0 0;
 }
-#col1, #col2{
-  padding: 0 0;
+
+#col1, #col2 {
+    padding: 0 0;
 }
+
+#col1 {
+    border-right: 1px solid #000000;
+}
+
+#col2 {
+    border-left: 1px solid #000000;
+}
+
 #col2 div {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 1px;
-  color: white;
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
 }
+
 .chart rect {
-  fill: steelblue;
+    fill: steelblue;
 }
 
 .chart text {
-  fill: white;
-  font: 10px sans-serif;
-  text-anchor: end;
+    fill: white;
+    font: 12px sans-serif;
+    text-anchor: end;
 }
+
+.bar {
+    fill: steelblue;
+}
+
+.bar:hover {
+    fill: brown;
+}
+
 /*
 Pretty print JSON, used for testing
 */
-pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
-.string { color: green; }
-.number { color: darkorange; }
-.boolean { color: blue; }
-.null { color: magenta; }
-.key { color: red; }
+pre {
+    outline: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+}
+
+.string {
+    color: green;
+}
+
+.number {
+    color: darkorange;
+}
+
+.boolean {
+    color: blue;
+}
+
+.null {
+    color: magenta;
+}
+
+.key {
+    color: red;
+}
 

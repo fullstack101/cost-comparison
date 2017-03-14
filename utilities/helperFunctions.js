@@ -3,7 +3,7 @@ const fs = require('fs');
 
 //Load Numbeo API key
 let apikey = "";
-fs.readFile('../apikey.txt', function read(err, data) {
+fs.readFile('./apikey.txt', function read(err, data) {
     if (err) {
         console.log("API key missing. Place numbeo API key in ./apikey.txt");
     }
