@@ -1,9 +1,20 @@
-extends layout
-
-block content
-    div(class='container')
-        div(id='main' class='row')
-            div(id='col1' class='col-lg-6 col-md-6 col-sm-6 col-xs6' style='background-color: lightblue')
-                p='Testin'
-            div(id='col2' class='col-lg-6 col-md-6 col-sm-6 col-xs6' style='background-color: green')
-                svg(class="chart")
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        title='Cost Comparison'
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='https://d3js.org/d3.v4.min.js')
+        script(src='/javascripts/client.js')
+    body
+        block content
+            div(class='container')
+                div(id='main' class='row')
+                    div(id='col1' class='col-lg-6 col-md-6 col-sm-6 col-xs6' style='background-color: green')
+                        div(class="city-name well")
+                        svg(class="chart1")
+                    div(id='col2' class='col-lg-6 col-md-6 col-sm-6 col-xs6' style='background-color: green')
+                        div(class="city-name well")
+                        svg(class="chart2")
