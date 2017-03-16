@@ -63,7 +63,7 @@ const filterJSON = function(res) {
 
 const filterItem = function(statsJSON, item) {
     statsJSON.prices = statsJSON.prices.filter(obj => (obj.item_id == item));
-    return statsJSON.prices;
+    return statsJSON.prices[0];
 };
 module.exports = {
     getGeoJSON: getGeoJSON,
