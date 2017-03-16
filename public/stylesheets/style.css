@@ -29,20 +29,32 @@ a {
     border-left: 1px solid #000000;
 }
 
-#col2 div {
-    font: 10px sans-serif;
+#col1 div, #col2 div {
+    font: 30px sans-serif;
     background-color: steelblue;
-    text-align: right;
-    padding: 3px;
-    margin: 1px;
+    text-align: center;
+    padding: 5px;
+    border: 3px;
+    margin: 10px;
     color: white;
 }
 
-.chart rect {
+/*#col2 svg {*/
+    /*font: 10px sans-serif;*/
+    /*background-color: steelblue;*/
+    /*text-align: right;*/
+    /*padding: 3px;*/
+    /*margin: 1px;*/
+    /*color: white;*/
+/*}*/
+
+.chart1 rect, .chart2 rect {
     fill: steelblue;
 }
-
-.chart text {
+.chart1{
+    float: right;
+}
+.chart1 text, .chart2 text {
     fill: white;
     font: 12px sans-serif;
     text-anchor: end;

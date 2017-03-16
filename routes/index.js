@@ -11,9 +11,10 @@ const fetch = require('node-fetch');
 const getGeoJSON = require('../utilities/helperFunctions.js').getGeoJSON;
 const getCityFromIP = require('../utilities/helperFunctions.js').getCityFromIP;
 const getCityStats = require('../utilities/helperFunctions.js').getCityStats;
+const getItemStats = require('../utilities/helperFunctions.js').getItemStats;
 
 router.get('/home', function (req, res, next) {
-    res.render('index', {text: 'Hello World'});
+    res.render('index');
 });
 
 router.get('/numbeo', function (req, res, next) {
@@ -35,9 +36,12 @@ router.get('/testIP', function (req, res, next) {
         .then((geoJSON) => res.json(geoJSON));
 });
 
-router.get('/arguments?:city', function (req, res, next) {
-    let city = req.query.city;
-    res.render('test', {title: 'Arguments', text: city});
+router.get('/getItem/:city/:item', function (req, res, next) {
+    let city = req.params.city;
+    let item = req.params.item;
+    getItemStats(city, item)
+        .then((resJSON) => res.json(resJSON));
+    //res.render('test', {title: 'Arguments', text: city});
 });
 
 router.get('/', function (req, res, next) {
