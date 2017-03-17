@@ -18,7 +18,7 @@ const httpJSONRequest = function (url) {
     });
 };
 
-httpJSONRequest("http://cost-comparison.azurewebsites.netv/testIP")
+httpJSONRequest("http://cost-comparison.azurewebsites.net/testIP")
     .then((json) => console.log(json));
 
 httpJSONRequest("http://cost-comparison.azurewebsites.net/numbeo")
