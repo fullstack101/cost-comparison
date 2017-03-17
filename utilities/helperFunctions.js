@@ -73,7 +73,7 @@ const filterItems = function (item, otherJSON){
     let other = otherJSON.filter(obj => obj.item_id==item.item_id);
     if(other.length==0){
         return false;
-    } else if(item.average_price>10 && other[0].average_price>10){
+    } else if(item.average_price>10 || other[0].average_price>10){
         return false;
     } else {
         return true
