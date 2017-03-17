@@ -48,10 +48,8 @@ router.get('/getItem/:city/:item', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    res.render('test', {
-        title: 'Express app for cost comparison',
-        text: "Checks client IP and compares cost of a burger in that city against Blago"
-    });
+    res.render('small');
+    // res.render('test', {title: 'Express app for cost comparison', text: "Checks client IP and compares cost of a burger in that city against Blago"});
 });
 
 module.exports = router;
