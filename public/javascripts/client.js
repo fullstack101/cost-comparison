@@ -30,6 +30,8 @@ httpJSONRequest("/numbeo")
         drawRightChart(json[1], "col2", ".chart2");
     });
 
+//TODO: Move chart drawing to a separate module
+
 function drawLeftChart(cityJSON, col, chartClass) {
     let cityStats = cityJSON.prices;
     //json[0];

@@ -1,0 +1,25 @@
+
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        title='Cost Comparison'
+        link(rel='stylesheet', href='/stylesheets/chart.css')
+        script(src='https://d3js.org/d3.v4.min.js')
+    body
+        block content
+            div(class='container')
+                svg(width='960' height='500')
+
+                script(type='text/javascript' src='/javascripts/chart.js').
+
+
+                #switcher
+                    p compare prices for:
+
+                    button.button(onclick="showitem(cokedata)") Coke
+                    button.button(onclick="showitem(mealdata)") Meal
+                    button.button(onclick="showitem(ticketdata)") Movie
+                #showfull
+                    a(href="/home", title="Show detailed comparison") Show detailed comparison
