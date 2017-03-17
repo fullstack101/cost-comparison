@@ -43,7 +43,7 @@ router.get('/getItem/:city/:item', function (req, res, next) {
     let city = req.params.city;
     let item = req.params.item;
     getItemStats(city, item)
-        .then((resJSON) => res.json(resJSON));
+        .then((resJSON) => res.json(resJSON[0]));
     //res.render('test', {title: 'Arguments', text: city});
 });
 
