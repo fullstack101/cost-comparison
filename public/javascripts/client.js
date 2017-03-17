@@ -32,32 +32,26 @@ httpJSONRequest("/numbeo")
 
 function drawLeftChart(cityJSON, col, chartClass) {
     let cityStats = cityJSON.prices;
-    //json[0];
-    console.log("Before filter: " + cityStats.length);
-    cityStats = cityStats.filter(obj => obj.average_price < 10);
-    console.log("After filter: " + cityStats.length);
 
     d3.select("#col1").select("div.city-name").text(cityJSON.name);
     let barHeight = 29;
     let margin = {top: 20, right: 30, bottom: 30, left: 40},
         width = 600 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
-    console.log(width);
+
     let x = d3.scaleLinear()
         .domain([0, d3.max(cityStats, obj => obj.average_price)])
         .range([0, width]);
 
     let xText = d3.scaleLinear()
-        .domain([0, d3.max(cityStats, obj => (margin.left + margin.right + width-obj.item_name.length))])
+        .domain([0, d3.max(cityStats, obj => (margin.left + margin.right + width - obj.item_name.length))])
         .range([0, (margin.left + margin.right + width)]);
 
     let chart = d3.select(chartClass)
         .attr("width", width + margin.left + margin.right)
         .attr("height", ((barHeight + 1) * cityStats.length) + margin.top + margin.bottom)
         .append("g")
-        //.attr("transform", "rotate(180)")
         .attr("transform", "translate(" + 0 + "," + margin.top + ")");
-    //.attr("transform", "translate(" + width + "," + margin.top + ") rotate(-180 0 "+ width + ")");
 
 
     let bar = chart.selectAll("g")
@@ -67,17 +61,12 @@ function drawLeftChart(cityJSON, col, chartClass) {
             return "translate(0," + (i * (barHeight + 1) + 3) + ")";
         });
 
-    chart.append("g")
+    let xAxis = chart.append("g")
         .attr("class", "axis axis--x")
-        .call(d3.axisBottom(x).ticks(10, "$"))
-        .attr("transform", "rotate(180 " + ((+margin.left + margin.right + width) / 2) + " " + 0 + ")")
-        .append("text")
-        .attr("x", 6)
-        .attr("dx", "0.71em")
-        .attr("text-anchor", "end")
-        .text("Price")
-        //.attr("transform", "translate(" + 20 + ", -9)");
-        .attr("transform", "translate(" + (20-width) + ", 9) rotate(-180 " + ((width) / 2) + " " + 0 + ")");
+        .call(d3.axisTop(x).ticks(10, "$"));
+    xAxis.selectAll("text")
+        .attr("transform", "matrix(-1 0 0 1 0 0)");
+    xAxis.attr("transform", "translate(600, 0) matrix(-1 0 0 1 0 0)")
 
     bar.append("rect")
         .attr("width", function (d) {
@@ -91,21 +80,18 @@ function drawLeftChart(cityJSON, col, chartClass) {
 
     bar.append("text")
         .attr("x", function (d) {
-            return ( xText(margin.left + margin.right + width-d.item_name.length));
+            return ( xText(margin.left + margin.right + width - d.item_name.length));
         })
         .attr("y", barHeight / 2)
         .attr("dy", ".35em")
         .text(function (d) {
             return d.item_name;
         });
-    //document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
+    document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
 }
 
 function drawRightChart(cityJSON, col, chartClass) {
     let cityStats = cityJSON.prices;
-    console.log("Before filter: " + cityStats.length);
-    cityStats = cityStats.filter(obj => obj.average_price < 10);
-    console.log("After filter: " + cityStats.length);
 
     d3.select("#col2").select("div.city-name").text(cityJSON.name);
     let barHeight = 29;
@@ -143,6 +129,7 @@ function drawRightChart(cityJSON, col, chartClass) {
         .attr("text-anchor", "end")
         .text("Price")
         .attr("transform", "translate(" + 20 + ", -9)");
+
     bar.append("rect")
         .attr("width", function (d) {
             return x(d.average_price);
@@ -159,7 +146,7 @@ function drawRightChart(cityJSON, col, chartClass) {
         .text(function (d) {
             return d.item_name;
         });
-    //document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
+    document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
 }
 // Pretty JSON
 

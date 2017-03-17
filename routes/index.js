@@ -12,6 +12,7 @@ const getGeoJSON = require('../utilities/helperFunctions.js').getGeoJSON;
 const getCityFromIP = require('../utilities/helperFunctions.js').getCityFromIP;
 const getCityStats = require('../utilities/helperFunctions.js').getCityStats;
 const getItemStats = require('../utilities/helperFunctions.js').getItemStats;
+const filterPrices = require('../utilities/helperFunctions.js').filterPrices;
 
 router.get('/home', function (req, res, next) {
     res.render('index');
@@ -23,7 +24,9 @@ router.get('/numbeo', function (req, res, next) {
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
     Promise.all([getCityFromIP(ip).then((city) => getCityStats(city)), getCityStats('Blagoevgrad')])
-        .then((cityStats) => res.json(cityStats));
+    // too slow :(
+        .then((bothCityStats) => filterPrices(bothCityStats))
+        .then((bothCityStats) => res.json(bothCityStats));
 });
 
 
@@ -45,7 +48,10 @@ router.get('/getItem/:city/:item', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    res.render('test', {title: 'Express app for cost comparison', text: "Checks client IP and compares cost of a burger in that city against Blago"});
+    res.render('test', {
+        title: 'Express app for cost comparison',
+        text: "Checks client IP and compares cost of a burger in that city against Blago"
+    });
 });
 
 module.exports = router;
