@@ -40,10 +40,19 @@ const getCityStats = function (city) {
     city = (city == "" ? "Belgrade" : city);
     return fetch("https://www.numbeo.com/api/city_prices?api_key=" + apikey + "&currency=USD&query=" + city)
         .then((res) => res.json())
-        .then((json) => filterJSON(json));
+        //.then((city) => city.prices=city.prices.filter(item => filterItems(item, json[1].prices)));
+        //.then((json) => filterJSON(json));
         //.then((res) => res.json())
 };
 
+const filterPrices = function(bothCityStats){
+    bothCityStats[0].prices = bothCityStats[0].prices.filter(item => filterItems(item, bothCityStats[1].prices));
+    bothCityStats[1].prices = bothCityStats[1].prices.filter(item => filterItems(item, bothCityStats[0].prices));
+    bothCityStats[0].prices.sort((a, b) => sortItemsById);
+    bothCityStats[1].prices.sort((a, b) => sortItemsById);
+    return bothCityStats;
+};
+// used by the chatbot
 const getItemStats = function (city, item) {
     city = (city == "" ? "Belgrade" : city);
     return fetch("https://www.numbeo.com/api/city_prices?api_key=" + apikey + "&currency=USD&query=" + city)
@@ -51,24 +60,38 @@ const getItemStats = function (city, item) {
         .then((json) => filterItem(json, item));
 };
 
-
 const getCityFromJSON = function (localeJSON) {
     return localeJSON.city;
-};
-
-const filterJSON = function(res) {
-    res.prices = res.prices.filter(obj => obj.average_price < 10);
-    return res;
 };
 
 const filterItem = function(statsJSON, item) {
     statsJSON.prices = statsJSON.prices.filter(obj => (obj.item_id == item));
     return statsJSON.prices;
 };
+
+const filterItems = function (item, otherJSON){
+    let other = otherJSON.filter(obj => obj.item_id==item.item_id);
+    if(other.length==0){
+        return false;
+    } else if(item.average_price>10 && other[0].average_price>10){
+        return false;
+    } else {
+        return true
+    }
+};
+const sortItemsById=function(a, b){
+    let keyA = new Date(a.item_id),
+        keyB = new Date(b.item_id);
+    // Compare the 2 ids
+    if(keyA < keyB) return -1;
+    if(keyA > keyB) return 1;
+    return 0;
+};
 module.exports = {
     getGeoJSON: getGeoJSON,
     getCityFromIP: getCityFromIP,
     getCityStats: getCityStats,
     getItemStats: getItemStats,
-    getCityFromJSON: getCityFromJSON
+    getCityFromJSON: getCityFromJSON,
+    filterPrices: filterPrices
 };
