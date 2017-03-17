@@ -54,6 +54,9 @@ a {
 .chart1{
     float: right;
 }
+.chart2{
+    float: left;
+}
 .chart1 text, .chart2 text {
     fill: white;
     font: 12px sans-serif;
