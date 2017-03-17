@@ -52,10 +52,10 @@ a {
     fill: steelblue;
 }
 .chart1{
-    /*float: right;*/
+    float: right;
 }
 .chart2{
-    /*float: left;*/
+    float: left;
 }
 .chart1 text, .chart2 text {
     fill: white;

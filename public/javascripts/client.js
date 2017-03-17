@@ -1,6 +1,5 @@
 const httpJSONRequest = function (url) {
     return new Promise(function (resolve, reject) {
-        console.log(url);
         let xhr = new XMLHttpRequest();
 
         xhr.withCredentials = false;
@@ -43,10 +42,6 @@ function drawLeftChart(cityJSON, col, chartClass) {
         .domain([0, d3.max(cityStats, obj => obj.average_price)])
         .range([0, width]);
 
-    let xText = d3.scaleLinear()
-        .domain([0, d3.max(cityStats, obj => (margin.left + margin.right + width - obj.item_name.length))])
-        .range([0, (margin.left + margin.right + width)]);
-
     let chart = d3.select(chartClass)
         .attr("width", width + margin.left + margin.right)
         .attr("height", ((barHeight + 1) * cityStats.length) + margin.top + margin.bottom)
@@ -80,14 +75,16 @@ function drawLeftChart(cityJSON, col, chartClass) {
 
     bar.append("text")
         .attr("x", function (d) {
-            return ( xText(margin.left + margin.right + width - d.item_name.length));
+            return margin.left + margin.right + width-10;
         })
         .attr("y", barHeight / 2)
         .attr("dy", ".35em")
         .text(function (d) {
-            return d.item_name;
+            let itemName =d.item_name.substring(0, d.item_name.indexOf(","));
+            itemName= d.average_price.toFixed(2)+ ", " + itemName;
+            return itemName;
         });
-    document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
+    //document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
 }
 
 function drawRightChart(cityJSON, col, chartClass) {
@@ -104,7 +101,7 @@ function drawRightChart(cityJSON, col, chartClass) {
         .range([0, width]);
 
     let xText = d3.scaleLinear()
-        .domain([0, d3.max(cityStats, obj => obj.item_name.length)])
+        .domain([0, d3.max(cityStats, (obj) => obj.item_name.substring(0, obj.item_name.indexOf(",")).length+6)])
         .range([0, width]);
 
     let chart = d3.select(chartClass)
@@ -138,15 +135,16 @@ function drawRightChart(cityJSON, col, chartClass) {
         .attr("class", "bar");
 
     bar.append("text")
-        .attr("x", function (d) {
-            return xText(d.item_name.length);
-        })
+        .attr("x", 10)
         .attr("y", barHeight / 2)
         .attr("dy", ".35em")
+        .style("text-anchor", "start")
         .text(function (d) {
-            return d.item_name;
+            let itemName =d.item_name.substring(0, d.item_name.indexOf(","));
+            itemName+=", " + d.average_price.toFixed(2);
+            return itemName;
         });
-    document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
+    //document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
 }
 // Pretty JSON
 
