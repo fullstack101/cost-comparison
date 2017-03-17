@@ -1,0 +1,57 @@
+
+.bar {
+    fill: steelblue;
+}
+
+.bar:hover {
+    fill: brown;
+}
+
+.axis--x path {
+    display: none;
+}
+
+body {
+    font: 15px arial, sans-serif;
+}
+button{
+    border: none;
+    padding: 2px 3px 5px;
+    display: inline;
+
+}
+
+.switcher button {
+    float: left;
+    display: inline;
+    background-color: steelblue;
+    color: white;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+    font-size: 12px
+}
+
+button:hover{
+    background-color: brown;
+
+}
+
+a {
+    text-decoration: none;
+    color: steelblue;
+    font-size: 13px;
+}
+
+a:hover{
+    color: brown;
+}
+
+.showfull{
+    display: block;
+    font-size: 12px;
+    text-decoration: none;
+    padding: 4px 0 15px 15px;
+    clear: right;
+
+}

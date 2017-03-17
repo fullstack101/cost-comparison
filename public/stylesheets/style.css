@@ -1,5 +1,5 @@
 body {
-    padding: 0px;
+    padding: 0;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -36,7 +36,7 @@ a {
     padding: 5px;
     border: 3px;
     margin: 10px;
-    color: white;
+    color: black;
 }
 
 /*#col2 svg {*/
@@ -55,7 +55,7 @@ a {
     float: right;
 }
 .chart1 text, .chart2 text {
-    fill: white;
+    fill: black;
     font: 12px sans-serif;
     text-anchor: end;
 }
