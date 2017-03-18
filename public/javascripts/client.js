@@ -12,8 +12,6 @@ const httpJSONRequest = function (url) {
                 let response = JSON.parse(xhr.responseText);
                 resolve(response);
             } else if (xhr.readyState == 4) {
-                console.log(xhr.readyState);
-                console.log(xhr.status);
                 reject(Error("Something went wrong with the request \n\t\t\t\t\t XHR Status: " + xhr.status));
             }
         }
@@ -25,8 +23,23 @@ httpJSONRequest("/testIP")
 
 httpJSONRequest("/numbeo")
     .then(function (json) {
-        drawLeftChart(json[0], "col1", ".chart1");
-        drawRightChart(json[1], "col2", ".chart2");
+        drawLeftChart(json[0], "#col1", ".chart1");
+        drawRightChart(json[1], "#col2", ".chart2");
+        d3.select("body").on("click", function() {
+            if(d3.select("#col1").style("background-color")=="rgb(0, 128, 0)"){
+                d3.select("#col1").style("background-color", "white");
+                d3.select("#col2").style("background-color", "white");
+                d3.select("#col1 div").style("color", "black");
+                d3.select("#col2 div").style("color", "black");
+                d3.selectAll("text").style("fill", "black");
+            } else {
+                d3.select("#col1").style("background-color", "green");
+                d3.select("#col2").style("background-color", "green");
+                d3.select("#col1 div").style("color", "white");
+                d3.select("#col2 div").style("color", "white");
+                d3.selectAll("text").style("fill", "white");
+            }
+        });
     });
 
 //TODO: Move chart drawing to a separate module
@@ -37,7 +50,7 @@ function drawLeftChart(cityJSON, col, chartClass) {
     d3.select("#col1").select("div.city-name").text(cityJSON.name);
     let barHeight = 29;
     let margin = {top: 20, right: 30, bottom: 30, left: 40},
-        width = 600 - margin.left - margin.right,
+        width = parseInt(d3.select("#col1").style("width"), 10) - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     let x = d3.scaleLinear()
@@ -45,7 +58,7 @@ function drawLeftChart(cityJSON, col, chartClass) {
         .range([0, width]);
 
     let chart = d3.select(chartClass)
-        .attr("width", width + margin.left + margin.right)
+        .attr("width", width + margin.left + margin.right - 1)
         .attr("height", ((barHeight + 1) * cityStats.length) + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + 0 + "," + margin.top + ")");
@@ -62,8 +75,9 @@ function drawLeftChart(cityJSON, col, chartClass) {
         .attr("class", "axis axis--x")
         .call(d3.axisTop(x).ticks(10, "$"));
     xAxis.selectAll("text")
-        .attr("transform", "matrix(-1 0 0 1 0 0)");
-    xAxis.attr("transform", "translate(600, 0) matrix(-1 0 0 1 0 0)")
+        .attr("transform", "matrix(-1 0 0 1 0 0)")
+        .style("text-anchor", "middle");
+    xAxis.attr("transform", "translate("+ (width + margin.left + margin.right - 1) + ", 0) matrix(-1 0 0 1 0 0)")
 
     bar.append("rect")
         .attr("width", function (d) {
@@ -83,7 +97,7 @@ function drawLeftChart(cityJSON, col, chartClass) {
         .attr("dy", ".35em")
         .text(function (d) {
             let itemName =d.item_name.substring(0, d.item_name.indexOf(","));
-            itemName= d.average_price.toFixed(2)+ ", " + itemName;
+            itemName= "$"+d.average_price.toFixed(2)+ ", " + itemName;
             return itemName;
         });
     //document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
@@ -95,7 +109,7 @@ function drawRightChart(cityJSON, col, chartClass) {
     d3.select("#col2").select("div.city-name").text(cityJSON.name);
     let barHeight = 29;
     let margin = {top: 20, right: 30, bottom: 30, left: 40},
-        width = 600 - margin.left - margin.right,
+        width = parseInt(d3.select("#col2").style("width"), 10) - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     let x = d3.scaleLinear()
@@ -107,7 +121,7 @@ function drawRightChart(cityJSON, col, chartClass) {
         .range([0, width]);
 
     let chart = d3.select(chartClass)
-        .attr("width", width + margin.left + margin.right)
+        .attr("width", width + margin.left + margin.right - 1)
         .attr("height", ((barHeight + 1) * cityStats.length) + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + 0 + "," + margin.top + ")");
@@ -118,11 +132,12 @@ function drawRightChart(cityJSON, col, chartClass) {
         .attr("transform", function (d, i) {
             return "translate(0," + (i * (barHeight + 1) + 3) + ")";
         });
-    chart.append("g")
+    let xAxis = chart.append("g")
         .attr("class", "axis axis--x")
         .call(d3.axisTop(x).ticks(10, "$"))
-        .attr("transform", "translate(" + 0 + ", 0)")
-        .append("text")
+        .attr("transform", "translate(" + 0 + ", 0)");
+    xAxis.selectAll("text").style("text-anchor", "middle");
+    xAxis.selectAll("text").append("text")
         .attr("x", 6)
         .attr("dx", "0.71em")
         .attr("text-anchor", "end")
@@ -143,7 +158,7 @@ function drawRightChart(cityJSON, col, chartClass) {
         .style("text-anchor", "start")
         .text(function (d) {
             let itemName =d.item_name.substring(0, d.item_name.indexOf(","));
-            itemName+=", " + d.average_price.toFixed(2);
+            itemName+=", " + "$" +d.average_price.toFixed(2);
             return itemName;
         });
     //document.getElementById(col).appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(cityJSON);
